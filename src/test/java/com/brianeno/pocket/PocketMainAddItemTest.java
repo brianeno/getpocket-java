@@ -1,6 +1,6 @@
 package com.brianeno.pocket;
 
-import com.brianeno.pocket.add.AddItemCmd;
+import com.brianeno.pocket.add.AddItemCommand;
 import com.brianeno.pocket.add.AddItemResult;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,30 +18,30 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class PocketAddItemTest {
+class PocketMainAddItemTest {
 
     @Mock
     HttpClient httpClient;
 
-    Pocket pocket;
+    PocketMain pocketMain;
 
     @BeforeEach
     void setUp() {
         HttpProvider.change(httpClient);
-        pocket = new Pocket(PocketAuthFactory.createForAccessToken("consumer-key", "access-token"));
+        pocketMain = new PocketMain(PocketAuthFactory.createForAccessToken("consumer-key", "access-token"));
     }
 
     @Test
     void shouldAddNewItem() throws IOException {
         // given
         given(httpClient.send(any())).willReturn(new HttpResponse(HTTP_RESPONSE_JSON.getBytes()));
-        AddItemCmd cmd = new AddItemCmd.Builder("https://some-website.com/")
+        AddItemCommand cmd = new AddItemCommand.Builder("https://some-website.com/")
                 .title("Item title")
                 .tags(Arrays.asList("tag1", "tag2"))
                 .build();
 
         // when
-        AddItemResult result = pocket.addItem(cmd);
+        AddItemResult result = pocketMain.addItem(cmd);
 
         // then
         Assertions.assertThat(result.getItem().getItemId()).isEqualTo("229279689");
@@ -51,13 +51,13 @@ class PocketAddItemTest {
     void shouldThrowPocketException() throws IOException {
         // given
         given(httpClient.send(any())).willThrow(PocketException.class);
-        AddItemCmd cmd = new AddItemCmd.Builder("https://some-website.com/")
+        AddItemCommand cmd = new AddItemCommand.Builder("https://some-website.com/")
                 .title("Item title")
                 .tags(Arrays.asList("tag1", "tag2"))
                 .build();
 
         // when
-        assertThrows(PocketException.class, () -> pocket.addItem(cmd));
+        assertThrows(PocketException.class, () -> pocketMain.addItem(cmd));
     }
 
     private static final String HTTP_RESPONSE_JSON = "{\"status\":1,\"item\":{\"item_id\":\"229279689\",\n" +

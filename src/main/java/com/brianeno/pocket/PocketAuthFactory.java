@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public class PocketAuthFactory {
 
+    private static final String AUTH_URL = "https://getpocket.com/v3/oauth/authorize";
+    private static final String AUTH_URL_WITH_TOKEN = AUTH_URL + "?request_token=";
+    private static final String ACCESS_CODE_URL = "https://getpocket.com/v3/oauth/request";
+
     private final String consumerKey;
     private final String redirectUrl;
     private final String code;
@@ -33,7 +37,7 @@ public class PocketAuthFactory {
     }
 
     public String getAuthUrl() {
-        return "https://getpocket.com/auth/authorize?request_token=" + code + "&redirect_uri=" + redirectUrl;
+        return AUTH_URL_WITH_TOKEN + code + "&redirect_uri=" + redirectUrl;
     }
 
     public PocketAuth create() throws IOException {
@@ -44,7 +48,7 @@ public class PocketAuthFactory {
         HashMap<String, String> params = new HashMap<>();
         params.put("consumer_key", consumerKey);
         params.put("redirect_uri", redirectUrl);
-        HttpRequest request = HttpRequest.postJson("https://getpocket.com/v3/oauth/request", params);
+        HttpRequest request = HttpRequest.postJson(ACCESS_CODE_URL, params);
         HttpResponse response = HttpProvider.get().send(request);
         return (String) response.asMap().get("code");
     }
@@ -53,7 +57,7 @@ public class PocketAuthFactory {
         HashMap<String, String> params = new HashMap<>();
         params.put("consumer_key", consumerKey);
         params.put("code", accessCode);
-        HttpRequest request = HttpRequest.postJson("https://getpocket.com/v3/oauth/authorize", params);
+        HttpRequest request = HttpRequest.postJson(AUTH_URL, params);
         HttpResponse response = HttpProvider.get().send(request);
         return (String) response.asMap().get("access_token");
     }

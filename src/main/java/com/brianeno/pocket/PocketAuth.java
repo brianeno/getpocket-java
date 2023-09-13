@@ -1,5 +1,8 @@
 package com.brianeno.pocket;
 
+import lombok.Getter;
+
+@Getter
 public class PocketAuth {
 
     private final String consumerKey;
@@ -8,13 +11,5 @@ public class PocketAuth {
     PocketAuth(String consumerKey, String accessToken) {
         this.consumerKey = consumerKey;
         this.accessToken = accessToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public String getConsumerKey() {
-        return consumerKey;
     }
 }

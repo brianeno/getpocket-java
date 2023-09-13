@@ -1,6 +1,6 @@
 package com.brianeno.pocket;
 
-import com.brianeno.pocket.read.GetItemsCmd;
+import com.brianeno.pocket.read.GetItemsCommand;
 import com.brianeno.pocket.read.GetItemsResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,29 +16,29 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class PocketListTest {
+class PocketMainListTest {
 
     @Mock
     HttpClient httpClient;
 
-    Pocket pocket;
+    PocketMain pocketMain;
 
     @BeforeEach
     void setUp() {
         HttpProvider.change(httpClient);
-        pocket = new Pocket(PocketAuthFactory.createForAccessToken("consumer-key", "access-token"));
+        pocketMain = new PocketMain(PocketAuthFactory.createForAccessToken("consumer-key", "access-token"));
     }
 
     @Test
     void shouldReturnList() throws IOException {
         // given
         given(httpClient.send(any())).willReturn(new HttpResponse(HTTP_RESPONSE_LIST_JSON.getBytes()));
-        GetItemsCmd getItemsRequest = new GetItemsCmd.Builder()
+        GetItemsCommand getItemsRequest = new GetItemsCommand.Builder()
                 .count(1)
                 .build();
 
         // when
-        GetItemsResult result = pocket.getItems(getItemsRequest);
+        GetItemsResult result = pocketMain.getItems(getItemsRequest);
 
         // then
         assertThat(result.getList().size()).isEqualTo(1);
@@ -50,12 +50,12 @@ class PocketListTest {
     void shouldThrowPocketException() throws IOException {
         // given
         given(httpClient.send(any())).willThrow(PocketException.class);
-        GetItemsCmd getItemsRequest = new GetItemsCmd.Builder()
+        GetItemsCommand getItemsRequest = new GetItemsCommand.Builder()
                 .count(1)
                 .build();
 
         // when
-        assertThrows(PocketException.class, () -> pocket.getItems(getItemsRequest));
+        assertThrows(PocketException.class, () -> pocketMain.getItems(getItemsRequest));
     }
 
     private static final String HTTP_RESPONSE_LIST_JSON = "{\"status\":1,\"list\":{\"229279689\":{\"item_id\":\"229279689\",\n" +

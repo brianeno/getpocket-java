@@ -1,16 +1,16 @@
 package com.brianeno.pocket.add;
 
-import com.brianeno.pocket.AuthorizedCmd;
+import com.brianeno.pocket.AuthorizedCommand;
 
 import java.util.List;
 
-public class AddItemCmd extends AuthorizedCmd {
+public class AddItemCommand extends AuthorizedCommand {
     private final String url;
     private final String title;
     private final String tags;
     private final String tweet_id;
 
-    private AddItemCmd(String url, String title, String tags, String tweetId) {
+    private AddItemCommand(String url, String title, String tags, String tweetId) {
         this.url = url;
         this.title = title;
         this.tags = tags;
@@ -49,8 +49,8 @@ public class AddItemCmd extends AuthorizedCmd {
             return this;
         }
 
-        public AddItemCmd build() {
-            return new AddItemCmd(url, title, tags, tweetId);
+        public AddItemCommand build() {
+            return new AddItemCommand(url, title, tags, tweetId);
         }
     }
 }

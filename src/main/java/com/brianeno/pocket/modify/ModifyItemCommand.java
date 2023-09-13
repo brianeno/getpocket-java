@@ -1,16 +1,16 @@
 package com.brianeno.pocket.modify;
 
-import com.brianeno.pocket.AuthorizedCmd;
+import com.brianeno.pocket.AuthorizedCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ModifyItemCmd extends AuthorizedCmd {
+public class ModifyItemCommand extends AuthorizedCommand {
 
     private final List<Map<String, Object>> actions;
 
-    private ModifyItemCmd(List<Map<String, Object>> actions) {
+    private ModifyItemCommand(List<Map<String, Object>> actions) {
         this.actions = actions;
     }
 
@@ -25,8 +25,8 @@ public class ModifyItemCmd extends AuthorizedCmd {
             return this;
         }
 
-        public ModifyItemCmd build() {
-            return new ModifyItemCmd(actions);
+        public ModifyItemCommand build() {
+            return new ModifyItemCommand(actions);
         }
     }
 }

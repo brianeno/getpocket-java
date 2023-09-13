@@ -1,9 +1,9 @@
 package com.brianeno.pocket;
 
 import com.brianeno.pocket.read.DetailType;
-import com.brianeno.pocket.read.GetItemsCmd;
+import com.brianeno.pocket.read.GetItemsCommand;
 import com.brianeno.pocket.read.GetItemsResult;
-import com.brianeno.pocket.read.PocketItem;
+import com.brianeno.pocket.read.PocketEntry;
 import com.brianeno.pocket.read.Sort;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class TestConnect {
 
     public static void main(String[] args) throws IOException {
         // given
-        String consumerKey = "<<>>>>";
+        String consumerKey = "<your key>";
         PocketAuthFactory factory = PocketAuthFactory.create(consumerKey, "https://getpocket.com/");
         String authCode = factory.getCode();
         String authorizationUrl = factory.getAuthUrl();
@@ -21,23 +21,30 @@ public class TestConnect {
         // click on URL and proceed
         // set breakpoint after so can accept before the following line
         PocketAuth pocketAuth = PocketAuthFactory.createForCode(consumerKey, authCode);
-        Pocket pocket = new Pocket(pocketAuth);
+        PocketMain pocketMain = new PocketMain(pocketAuth);
         int total = 100;
         int offset = 0;
         int loops = 0;
+        int numRead = 0;
         while (true) {
-            GetItemsCmd cmd = new GetItemsCmd.Builder()
+            loops++;
+            GetItemsCommand cmd = new GetItemsCommand.Builder()
                     .count(total)
                     .detailType(DetailType.complete)
                     .sort(Sort.newest)
                     .offset(offset)
+                    .search("webflux")
                     .build();
-            GetItemsResult getResult = pocket.getItems(cmd);
-            List<PocketItem> items = getResult.getList();
+            GetItemsResult getResult = pocketMain.getItems(cmd);
+            List<PocketEntry> items = getResult.getList();
             System.out.println(items);
             if (items != null) {
                 loops++;
+                numRead = numRead + items.size();
                 offset = offset + total;
+                for(PocketEntry item : items) {
+                    System.out.println(item.getResolvedTitle());
+                }
                 if (items.size() != total) {
                     break;
                 }
@@ -45,6 +52,6 @@ public class TestConnect {
                 break;
             }
         }
-        System.out.println("Read " + (total * loops));
+        System.out.println("Read " + numRead + "items in " + loops + " attempts");
     }
 }

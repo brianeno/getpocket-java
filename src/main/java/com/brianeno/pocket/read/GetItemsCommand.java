@@ -1,12 +1,12 @@
 package com.brianeno.pocket.read;
 
-import com.brianeno.pocket.AuthorizedCmd;
+import com.brianeno.pocket.AuthorizedCommand;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Optional;
 
-public class GetItemsCmd extends AuthorizedCmd {
+public class GetItemsCommand extends AuthorizedCommand {
 
     /**
      * Official tag used to find untagged items.
@@ -25,9 +25,9 @@ public class GetItemsCmd extends AuthorizedCmd {
     private final Integer count;
     private final Integer offset;
 
-    private GetItemsCmd(ItemState state, Short favorite, String tag,
-                        ContentType contentType, Sort sort, DetailType detailType, String search, String domain,
-                        Long since, Integer count, Integer offset) {
+    private GetItemsCommand(ItemState state, Short favorite, String tag,
+                            ContentType contentType, Sort sort, DetailType detailType, String search, String domain,
+                            Long since, Integer count, Integer offset) {
         this.state = state;
         this.favorite = favorite;
         this.tag = tag;
@@ -116,8 +116,8 @@ public class GetItemsCmd extends AuthorizedCmd {
             return this;
         }
 
-        public GetItemsCmd build() {
-            return new GetItemsCmd(state, favorite, tag, contentType, sort, detailType,
+        public GetItemsCommand build() {
+            return new GetItemsCommand(state, favorite, tag, contentType, sort, detailType,
                     search, domain, since, count, offset);
         }
     }

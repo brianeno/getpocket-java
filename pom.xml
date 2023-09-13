@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.brianeno</groupId>
-    <artifactId>pocket-integration</artifactId>
+    <artifactId>pocketMain-integration</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -35,6 +35,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.9.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

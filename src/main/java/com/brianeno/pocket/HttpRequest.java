@@ -8,10 +8,10 @@ import java.nio.charset.StandardCharsets;
 
 public class HttpRequest {
 
-    final Method method;
-    final URL url;
-    final String contentType;
-    final byte[] body;
+    protected final Method method;
+    protected final URL url;
+    protected final String contentType;
+    protected final byte[] body;
 
     enum Method {
         GET, POST

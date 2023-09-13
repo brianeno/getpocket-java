@@ -16,6 +16,4 @@ public class PocketException extends RuntimeException {
     public Integer getErrorCode() {
         return errorCode;
     }
-
-
 }

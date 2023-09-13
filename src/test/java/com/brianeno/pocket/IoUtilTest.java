@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class IOUtilTest {
+class IoUtilTest {
 
     @Test
     void shouldConvertStreamToBytes() throws IOException {
@@ -17,7 +17,7 @@ class IOUtilTest {
         InputStream is = new ByteArrayInputStream(streamBytes);
 
         // when
-        byte[] outputBytes = IOUtil.toBytes(is);
+        byte[] outputBytes = IoUtil.toBytes(is);
 
         // then
         assertThat(outputBytes).isEqualTo(streamBytes);

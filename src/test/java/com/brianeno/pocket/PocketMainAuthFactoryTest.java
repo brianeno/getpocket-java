@@ -13,7 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class PocketAuthFactoryTest {
+class PocketMainAuthFactoryTest {
 
     private static final String CONSUMER_KEY = "12345-1122334455";
 

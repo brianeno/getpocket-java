@@ -1,7 +1,12 @@
 package com.brianeno.pocket.read;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 public class ItemTag {
     private final String itemId;
     private final String tag;
@@ -17,26 +22,5 @@ public class ItemTag {
     public ItemTag(String itemId, String tag) {
         this.itemId = itemId;
         this.tag = tag;
-    }
-
-    @Override
-    public String toString() {
-        return "ItemTag{" +
-                "itemId='" + itemId + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ItemTag itemTag = (ItemTag) o;
-        return Objects.equals(itemId, itemTag.itemId) && Objects.equals(tag, itemTag.tag);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemId, tag);
     }
 }

@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class IOUtil {
+public class IoUtil {
 
     static byte[] toBytes(InputStream is) throws IOException {
         try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {

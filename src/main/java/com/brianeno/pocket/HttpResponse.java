@@ -12,21 +12,21 @@ public class HttpResponse {
 
     private final byte[] body;
 
-    HttpResponse(byte[] body) {
+    protected HttpResponse(byte[] body) {
         this.body = body;
     }
 
-    <T> T asObject(Class<T> type) {
+    protected <T> T asObject(Class<T> type) {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create().fromJson(new String(body, StandardCharsets.UTF_8), type);
     }
 
-    String asString() {
+    protected String asString() {
         return new String(body, StandardCharsets.UTF_8);
     }
 
-    Map<String, Object> asMap() {
+    protected Map<String, Object> asMap() {
         return new Gson().fromJson(asString(), new TypeToken<Map<String, String>>() {
         }.getType());
     }

@@ -1,7 +1,12 @@
 package com.brianeno.pocket.read;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Video {
     private final String itemId;
     private final String videoId;
@@ -19,55 +24,5 @@ public class Video {
         this.height = height;
         this.type = type;
         this.vid = vid;
-    }
-
-    public String getItemId() {
-        return itemId;
-    }
-
-    public String getVideoId() {
-        return videoId;
-    }
-
-    public String getSrc() {
-        return src;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getVid() {
-        return vid;
-    }
-
-    @Override
-    public String toString() {
-        return "Video{" +
-                "itemId='" + itemId + '\'' +
-                ", videoId='" + videoId + '\'' +
-                ", src='" + src + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Video video = (Video) o;
-        return Objects.equals(itemId, video.itemId) && Objects.equals(videoId, video.videoId) && Objects.equals(src, video.src) && Objects.equals(width, video.width) && Objects.equals(height, video.height) && Objects.equals(type, video.type) && Objects.equals(vid, video.vid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemId, videoId, src, width, height, type, vid);
     }
 }

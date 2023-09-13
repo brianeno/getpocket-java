@@ -29,7 +29,7 @@ public class HttpClient {
         int statusCode = con.getResponseCode();
         if (statusCode == HttpsURLConnection.HTTP_OK) {
             try (InputStream is = con.getInputStream()) {
-                return new HttpResponse(IOUtil.toBytes(is));
+                return new HttpResponse(IoUtil.toBytes(is));
             }
         } else {
             Integer headerErrorCode = Optional.ofNullable(con.getHeaderField("x-error-code"))
@@ -38,7 +38,7 @@ public class HttpClient {
             String headerErrorMessage = Optional.ofNullable(con.getHeaderField("x-error"))
                     .orElseGet(() -> {
                         try (InputStream is = con.getErrorStream()) {
-                            return new String(IOUtil.toBytes(is));
+                            return new String(IoUtil.toBytes(is));
                         } catch (IOException e) {
                             return null;
                         }

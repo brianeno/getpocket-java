@@ -1,6 +1,9 @@
 package com.brianeno.pocket;
 
-public abstract class AuthorizedCmd {
+import lombok.Getter;
+
+@Getter
+public abstract class AuthorizedCommand {
     private String consumer_key;
     private String access_token;
 

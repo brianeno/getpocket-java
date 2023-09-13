@@ -11,5 +11,4 @@ public class HttpProvider {
     static HttpClient get() {
         return client;
     }
-
 }
